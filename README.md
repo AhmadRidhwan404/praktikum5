@@ -1,5 +1,3 @@
-**# README**
-
 ## Flowchart Sistem Manajemen Data Mahasiswa
 
 Dokumen ini berisi flowchart sederhana untuk sistem pengelolaan data mahasiswa, yang terdiri dari beberapa fitur utama seperti:
