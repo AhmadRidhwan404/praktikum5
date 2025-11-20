@@ -1,0 +1,125 @@
+# ...existing code...
+"""
+Program sederhana: daftar nilai mahasiswa menggunakan Dictionary.
+Menu: Tambah Data, Ubah Data, Hapus Data, Tampilkan Data, Cari Data.
+Nilai Akhir = tugas*0.30 + uts*0.35 + uas*0.35
+"""
+from typing import Dict
+students: Dict[str, dict] = {}
+def hitung_akhir(tugas: float, uts: float, uas: float) -> float:
+    return tugas * 0.30 + uts * 0.35 + uas * 0.35
+
+def input_nilai(prompt: str, default: float | None = None) -> float:
+    while True:
+        s = input(f"{prompt}" + (f" [{default}]" if default is not None else "") + ": ").strip()
+        if s == "" and default is not None:
+            return default
+        try:
+            v = float(s)
+            if 0 <= v <= 100:
+                return v
+            print("Masukkan nilai antara 0-100.")
+        except ValueError:
+            print("Masukkan angka yang valid.")
+
+def tambah_data():
+    nim = input("NIM: ").strip()
+    if not nim:
+        print("NIM tidak boleh kosong.")
+        return
+    if nim in students:
+        print("NIM sudah ada. Gunakan Ubah Data jika ingin mengedit.")
+        return
+    nama = input("Nama: ").strip()
+    tugas = input_nilai("Nilai Tugas")
+    uts = input_nilai("Nilai UTS")
+    uas = input_nilai("Nilai UAS")
+    akhir = hitung_akhir(tugas, uts, uas)
+    students[nim] = {"nama": nama, "tugas": tugas, "uts": uts, "uas": uas, "akhir": akhir}
+    print(f"Data untuk {nama} ({nim}) ditambahkan. Nilai akhir: {akhir:.2f}")
+
+
+def ubah_data():
+    nim = input("Masukkan NIM yang ingin diubah: ").strip()
+    if nim not in students:
+        print("Data tidak ditemukan.")
+        return
+    rec = students[nim]
+    print(f"Ubah data untuk {rec['nama']} ({nim}). Tekan Enter untuk mempertahankan nilai lama.")
+    nama = input(f"Nama [{rec['nama']}]: ").strip() or rec["nama"]
+    tugas = input_nilai("Nilai Tugas", rec["tugas"])
+    uts = input_nilai("Nilai UTS", rec["uts"])
+    uas = input_nilai("Nilai UAS", rec["uas"])
+    akhir = hitung_akhir(tugas, uts, uas)
+    students[nim] = {"nama": nama, "tugas": tugas, "uts": uts, "uas": uas, "akhir": akhir}
+    print(f"Data untuk {nama} ({nim}) diperbarui. Nilai akhir: {akhir:.2f}")
+
+
+def hapus_data():
+    nim = input("Masukkan NIM yang ingin dihapus: ").strip()
+    if nim not in students:
+        print("Data tidak ditemukan.")
+        return
+    confirm = input(f"Hapus data {students[nim]['nama']} ({nim})? (y/N): ").strip().lower()
+    if confirm == "y":
+        students.pop(nim)
+        print("Data dihapus.")
+    else:
+        print("Dibatalkan.")
+
+
+def tampilkan_data():
+    if not students:
+        print("Belum ada data.")
+        return
+    header = f"{'NIM':<12} {'Nama':<25} {'Tugas':>6} {'UTS':>6} {'UAS':>6} {'Akhir':>7}"
+    print(header)
+    print("-" * len(header))
+    for nim, rec in sorted(students.items()):
+        print(f"{nim:<12} {rec['nama']:<25} {rec['tugas']:6.1f} {rec['uts']:6.1f} {rec['uas']:6.1f} {rec['akhir']:7.2f}")
+
+
+def cari_data():
+    key = input("Cari berdasarkan NIM atau Nama (ketik bagian/seluruh): ").strip().lower()
+    if not key:
+        print("Kata kunci kosong.")
+        return
+    hasil = []
+    for nim, rec in students.items():
+        if key in nim.lower() or key in rec["nama"].lower():
+            hasil.append((nim, rec))
+    if not hasil:
+        print("Tidak ditemukan.")
+        return
+    print(f"Ditemukan {len(hasil)} hasil:")
+    for nim, rec in hasil:
+        print(f"- {nim} | {rec['nama']} | Tugas {rec['tugas']} | UTS {rec['uts']} | UAS {rec['uas']} | Akhir {rec['akhir']:.2f}")
+
+
+def menu():
+    actions = {
+        "1": ("Tambah Data", tambah_data),
+        "2": ("Ubah Data", ubah_data),
+        "3": ("Hapus Data", hapus_data),
+        "4": ("Tampilkan Data", tampilkan_data),
+        "5": ("Cari Data", cari_data),
+        "0": ("Keluar", None),
+    }
+    while True:
+        print("\nMenu:")
+        for k, (desc, _) in actions.items():
+            print(f" {k}. {desc}")
+        pilih = input("Pilih menu: ").strip()
+        if pilih == "0":
+            print("Keluar.")
+            break
+        action = actions.get(pilih)
+        if action:
+            action[1]()
+        else:
+            print("Pilihan tidak valid.")
+
+
+if __name__ == "__main__":
+    menu()
+# ...existing code...
