@@ -1,0 +1,73 @@
+# Latihan 1: Mengelola Kontak dengan Dictionary di Python
+contacts = {
+    "Ari": "081234567",
+    "Dina": "082333444",
+}
+
+print("Kontak awal:", contacts)
+
+# Tampilkan kontaknya Ari
+print("Kontak Ari:", contacts.get("Ari", "Tidak ditemukan"))
+
+# Tambah kontak baru Riko
+contacts["Riko"] = "087654544"
+print("Ditambahkan Riko:", contacts["Riko"])
+
+# Ubah kontak Dina dengan nomor baru
+contacts["Dina"] = "088999776"
+print("Diperbarui Dina:", contacts["Dina"])
+
+# Tampilkan semua Nama
+print("Semua Nama:", list(contacts.keys()))
+
+# Tampilkan semua Nomor
+print("Semua Nomor:", list(contacts.values()))
+
+# Tampilkan daftar Nama dan nomornya
+print("Daftar Nama dan Nomor:")
+for nama, nomor in contacts.items():
+    print(f"- {nama}: {nomor}")
+
+# Hapus kontak Dina
+dihapus = contacts.pop("Dina", None)
+print("Dihapus kontak Dina:", "Berhasil (nomor: " + dihapus + ")" if dihapus else "Tidak ditemukan")
+
+# Tampilkan kontak akhir
+print("Kontak akhir:", contacts)
+#exit()# Latihan 1: Mengelola Kontak dengan Dictionary di Python
+contacts = {
+    "Ari": "081234567",
+    "Dina": "082333444",
+}
+
+print("Kontak awal:", contacts)
+
+# Tampilkan kontaknya Ari
+print("Kontak Ari:", contacts.get("Ari", "Tidak ditemukan"))
+
+# Tambah kontak baru Riko
+contacts["Riko"] = "087654544"
+print("Ditambahkan Riko:", contacts["Riko"])
+
+# Ubah kontak Dina dengan nomor baru
+contacts["Dina"] = "088999776"
+print("Diperbarui Dina:", contacts["Dina"])
+
+# Tampilkan semua Nama
+print("Semua Nama:", list(contacts.keys()))
+
+# Tampilkan semua Nomor
+print("Semua Nomor:", list(contacts.values()))
+
+# Tampilkan daftar Nama dan nomornya
+print("Daftar Nama dan Nomor:")
+for nama, nomor in contacts.items():
+    print(f"- {nama}: {nomor}")
+
+# Hapus kontak Dina
+dihapus = contacts.pop("Dina", None)
+print("Dihapus kontak Dina:", "Berhasil (nomor: " + dihapus + ")" if dihapus else "Tidak ditemukan")
+
+# Tampilkan kontak akhir
+print("Kontak akhir:", contacts)
+#exit()
